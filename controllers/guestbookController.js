@@ -10,7 +10,8 @@ async function findAllGuestbook() {
 }
 
 //방명록 데이터 1개 추가 메소드
-async function insertIntoGuestbook({name, content, imgUrl}) {
+async function insertIntoGuestbook({name, content, profileImage}) {
+    console.log(profileImage)
     const client = await MongoClient.connect(uri);
     let db = await client.db('hyerim_guestbook');
     try{
@@ -23,7 +24,7 @@ async function insertIntoGuestbook({name, content, imgUrl}) {
             name: name,
             content: content,
             addDate: `${year}-${month}-${day}`,
-            imgUrl: imgUrl
+            profileImage: profileImage
         })
         //정상 등록 시 등록일자 return
         return `${year}-${month}-${day}`;

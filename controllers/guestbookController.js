@@ -2,7 +2,6 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://sue05124:TKA7xskmHsubSXi9@cluster0.has0vkc.mongodb.net/?retryWrites=true&w=majority";
 
 async function findAllGuestbook() {
-    console.log('안녕');
     const client = await MongoClient.connect(uri);
     let db = await client.db('hyerim_guestbook');
     let 전체데이터 = await db.collection('guestbook').find({}).toArray();
@@ -50,7 +49,7 @@ module.exports = {
         if(req.body.name===undefined || req.body.name==='') {
             name = '아무개';
         }
-        //imgUrl이 없으면 임의의 이미지로 지정
+        //profileImage가 없으면 ''로 지정
         if(req.body.profileImage===undefined || req.body.profileImage==='') {
             profileImage = '';
         }

@@ -10,8 +10,7 @@ async function findAllGuestbook() {
 }
 
 //방명록 데이터 1개 추가 메소드
-async function insertIntoGuestbook({name, content, profileImage}) {
-    console.log(profileImage)
+async function insertIntoGuestbook({name,content,profileImage}) {
     const client = await MongoClient.connect(uri);
     let db = await client.db('hyerim_guestbook');
     try{
@@ -39,7 +38,8 @@ module.exports = {
         res.status(200).send({ data:responseData });
     },
     postContent: async (req, res) => {
-        let name, content, imgUrl, addDate;
+        let name, content, profileImage, addDate;
+        
         //content가 없으면 데이터 저장 x
         if(req.body.content===undefined || req.body.content==='') {
             res.status(404).send({
@@ -51,19 +51,21 @@ module.exports = {
             name = '아무개';
         }
         //imgUrl이 없으면 임의의 이미지로 지정
-        if(req.body.imgUrl===undefined || req.body.imgUrl==='') {
-            imgUrl = 'https://avatars.githubusercontent.com/u/50258232?v=4';
+        if(req.body.profileImage===undefined || req.body.profileImage==='') {
+            profileImage = '';
         }
+        name = req.body.name;
         content = req.body.content;
+        profileImage = req.body.profileImage;
 
         addDate = await insertIntoGuestbook(
-            { name: name, content: content, imgUrl:imgUrl }
+            { name: name, content: content, profileImage:profileImage }
         );
         res.status(200).json({
             name: name,
             content: content,
             addDate: addDate,
-            imgUrl: imgUrl
+            profileImage: profileImage
         });
     }
 };

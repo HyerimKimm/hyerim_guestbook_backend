@@ -41,7 +41,7 @@ module.exports = {
         
         //content가 없으면 데이터 저장 x
         if(req.body.content===undefined || req.body.content==='') {
-            res.status(404).send({
+            return res.status(404).send({
                 message: 'content is undefined!'
             });
         }
@@ -60,7 +60,11 @@ module.exports = {
         addDate = await insertIntoGuestbook(
             { name: name, content: content, profileImage:profileImage }
         );
-        res.status(200).json({
+
+        console.log(`profile Image: `);
+        console.log(profileImage)
+
+        return res.status(200).json({
             name: name,
             content: content,
             addDate: addDate,

@@ -10,6 +10,7 @@ async function findAllGuestbook() {
 
 //방명록 데이터 1개 추가 메소드
 async function insertIntoGuestbook({name,content,profileImage}) {
+    console.log(`name: ${name}, content: ${content}, profileImage: ${profileImage}`)
     const client = await MongoClient.connect(uri);
     let db = await client.db('hyerim_guestbook');
     try{
@@ -37,7 +38,9 @@ module.exports = {
         res.status(200).send({ data:responseData });
     },
     postContent: async (req, res, next) => {
-        let responseData = await insertIntoGuestbook;
+        console.log(`postContent 실행`)
+        console.log(req.body)
+        let responseData = await insertIntoGuestbook({...req.body});
         res.status(200).send({ data:responseData });
     }
 };

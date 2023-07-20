@@ -23,4 +23,6 @@
 🚨 MongoDB의 Network Access에 등록되지 않은 IP로는 DB에 접근할 수 없습니다. 🚨
 
 # 문서
+<a href="https://www.figma.com/file/JKsqbRZYHeYKfnpdtkgOWc/Untitled?type=design&node-id=0%3A1&mode=design&t=TubTmt8cIdqs3ce4-1"> 👉🏻 Figma 바로가기</a>
+
 <a href="https://hyerimkim.notion.site/7a61f5c76cae46c7b92fec5573443f1d?pvs=4"> 👉🏻 노션 바로가기</a>

@@ -10,6 +10,7 @@ async function findAllGuestbook() {
 
 //방명록 데이터 1개 추가 메소드
 async function insertIntoGuestbook({name,content,profileImage}) {
+    console.log(`name: ${name}, content: ${content}, profileImage: ${profileImage}`)
     const client = await MongoClient.connect(uri);
     let db = await client.db('hyerim_guestbook');
     try{
@@ -36,39 +37,10 @@ module.exports = {
         let responseData = await findAllGuestbook();
         res.status(200).send({ data:responseData });
     },
-    postContent: async (req, res) => {
-        let name, content, profileImage, addDate;
-        
-        //content가 없으면 데이터 저장 x
-        if(req.body.content===undefined || req.body.content==='') {
-            return res.status(404).send({
-                message: 'content is undefined!'
-            });
-        }
-        //name이 없으면 name은 '아무개'로 지정
-        if(req.body.name===undefined || req.body.name==='') {
-            name = '아무개';
-        }
-        //profileImage가 없으면 ''로 지정
-        if(req.body.profileImage===undefined || req.body.profileImage==='') {
-            profileImage = '';
-        }
-        name = req.body.name;
-        content = req.body.content;
-        profileImage = req.body.profileImage;
-
-        addDate = await insertIntoGuestbook(
-            { name: name, content: content, profileImage:profileImage }
-        );
-
-        console.log(`profile Image: `);
-        console.log(profileImage)
-
-        return res.status(200).json({
-            name: name,
-            content: content,
-            addDate: addDate,
-            profileImage: profileImage
-        });
+    postContent: async (req, res, next) => {
+        console.log(`postContent 실행`)
+        console.log(req.body)
+        let responseData = await insertIntoGuestbook({...req.body});
+        res.status(200).send({ data:responseData });
     }
 };
